@@ -11,8 +11,7 @@ export default {
     return {
       showBlock: false,
       timer: null,
-      reactionTime: 0,
-      formerTimes: []
+      reactionTime: 0
     }
   },
   mounted() {
@@ -21,9 +20,7 @@ export default {
       this.showBlock = true
       this.startTimer()
     }, this.delay)
-    if(localStorage.getItem('prevTimes')) {
-      console.log(localStorage.getItem('prevTimes'));
-    }
+    
   },
   methods: {
     startTimer(){
@@ -34,8 +31,8 @@ export default {
     stopTimer(){
       clearInterval(this.timer)
       this.$emit('end', this.reactionTime)
-      this.formerTimes.push({'time': this.reactionTime})
-      localStorage.setItem('prevTimes', this.formerTimes)
+      // this.formerTimes.push({'time': this.reactionTime})
+      // localStorage.setItem('prevTimes', this.formerTimes)
     }
   }
 }
