@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div v-for="score in prevScore">
     <h1>
-
+      {{ score }}
     </h1>
   </div>
 </template>
@@ -9,11 +9,13 @@
 export default {
   data() {
     return {
-      prevRes: []
+      prevRes: ['prevScore']
     }
   },
   mounted() {
   }
 }
 </script>
-<style></style>
+<style>
+
+</style>

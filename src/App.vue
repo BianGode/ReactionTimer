@@ -7,7 +7,7 @@
       <Results v-if="showResults" :reactTime="score"></Results>
     </div>
     <div class="previousScores">
-      <PreviousResults/>
+      <PreviousResults :prevScore="formerTimes" />
     </div>
   </div>
   <!-- <p v-if="">ReactionTime: {{ score }}ms</p> -->
@@ -35,10 +35,16 @@ export default {
     }
   },
   mounted() {
+    console.log(this.formerTimes);
     console.log('OnMounted');
     if (localStorage.getItem('prevTimes')) {
-      console.log(JSON.parse(localStorage.getItem('prevTimes')));
-      this.formerTimes = JSON.parse(localStorage.getItem('prevTimes'))
+      // console.log(JSON.parse(localStorage.getItem('prevTimes')));
+      const tempArrMount = JSON.parse(localStorage.getItem('prevTimes'))
+      tempArrMount.forEach(el => {
+        this.formerTimes.push(el)
+      });
+      console.log(tempArrMount);
+      // this.formerTimes = tempArrMount
       console.log(this.formerTimes);
     }
     // WHERE WAS I
@@ -82,6 +88,7 @@ export default {
   color: #b28c18;
   margin-top: 60px;
 }
+
 .homeWrapper {
   display: flex;
   flex-direction: column;
