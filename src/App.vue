@@ -44,7 +44,6 @@ export default {
     // WHERE WAS I
     // I need to figure out how to pass formerTimes to PreviousResults
     // Right know this.formerTimes is console loggin = Proxy { <target>: (5) […], <handler>: {…} } and idk why
-
   },
   methods: {
     start() {
