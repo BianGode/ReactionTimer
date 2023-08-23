@@ -1,13 +1,13 @@
 <template>
   <div class="homeWrapper">
+    <div class="previousScores">
+      <PreviousResults v-bind:prevScore="formerTimes" />
+    </div>
     <div class="reactionTimer">
       <h1>Reaction Timer</h1>
       <button @click="start" :disabled="isPlaying">Play</button>
       <Block v-if="isPlaying" :delay="delay" @end="endGame" />
       <Results v-if="showResults" :reactTime="score"></Results>
-    </div>
-    <div class="previousScores">
-      <PreviousResults :prevScore="formerTimes" />
     </div>
   </div>
   <!-- <p v-if="">ReactionTime: {{ score }}ms</p> -->
@@ -50,7 +50,8 @@ export default {
     // WHERE WAS I
     // I need to figure out how to pass formerTimes to PreviousResults
     // Right know this.formerTimes is console loggin = Proxy { <target>: (5) […], <handler>: {…} } and idk why
-  },
+    // Previous results work but they are added instead of replace everytime it rerenders 
+    },
   methods: {
     start() {
       this.delay = 2000 + Math.random() * 5000
@@ -64,9 +65,10 @@ export default {
         tempArr.push(this.score)
         console.log(tempArr);
         console.log(this.formerTimes);
+        tempArr.forEach((el) => {
+          this.formerTimes.push(el)
+        })
         this.formerTime = tempArr
-
-
         localStorage.setItem('prevTimes', JSON.stringify(tempArr))
         console.log(JSON.parse(localStorage.getItem('prevTimes')))
       } else {
@@ -91,6 +93,16 @@ export default {
 
 .homeWrapper {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.homeWrapper > div {
+  width: 50%;
+  height: auto;
+  border: 2px dotted purple;
 }
 </style>
