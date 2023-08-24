@@ -1,7 +1,7 @@
 <template>
   <div class="homeWrapper">
     <div class="previousScores">
-      <PreviousResults v-bind:prevScore="formerTimes" />
+      <PreviousResults :prevScore="formerTimes" />
     </div>
     <div class="reactionTimer">
       <h1>Reaction Timer</h1>
@@ -35,7 +35,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.formerTimes);
     console.log('OnMounted');
     if (localStorage.getItem('prevTimes')) {
       // console.log(JSON.parse(localStorage.getItem('prevTimes')));
@@ -62,17 +61,15 @@ export default {
       this.score = reactionTime
       if (localStorage.getItem('prevTimes')) {
         let tempArr = JSON.parse(localStorage.getItem('prevTimes'))
-        tempArr.push(this.score)
-        console.log(tempArr);
-        console.log(this.formerTimes);
-        tempArr.forEach((el) => {
-          this.formerTimes.push(el)
-        })
+        // tempArr.forEach((el) => {
+        //   this.formerTimes.push(el)
+        // })
         this.formerTime = tempArr
-        localStorage.setItem('prevTimes', JSON.stringify(tempArr))
-        console.log(JSON.parse(localStorage.getItem('prevTimes')))
+        this.formerTimes.push(this.score)
+        localStorage.setItem('prevTimes', JSON.stringify(this.formerTimes))
       } else {
         localStorage.setItem('prevTimes', JSON.stringify([this.score]))
+        this.formerTime.push(this.score)
       }
       this.isPlaying = false
       this.showResults = true
